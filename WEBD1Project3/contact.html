@@ -1,0 +1,68 @@
+<!-------w---------
+
+    Project 3
+    Name: Yi Siang Chang
+    Date: 2023-04-23
+    Description: Project 3
+
+------------------>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .error {
+            display: none;
+            color: red;
+        }
+        input:focus, textarea:focus {
+            background-color: lightyellow;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>FIRE Store</h1>
+        <p>one giant leap for us</p>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="products.html">PRODUCTS</a></li>
+            <!-- <li><a href="services.html">Services</a></li> -->
+            <li><a href="#">CONTACT</a></li>
+        </ul>
+    </nav>
+    <main>
+        <h1>Contact Us</h1>
+        <p>Please fill out the form below to send feedback or ask questions. We will get back to you as soon as possible.</p>
+        <form id="contact-form" action="index.html" method="post" onsubmit="return validateForm()">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <span id="name-error" class="error">Please enter your name</span>
+            <br>
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" pattern="^\d{3}-\d{3}-\d{4}$|^\d{10}$" placeholder="123-456-7890" required>
+            <span id="phone-error" class="error">Please enter a valid 10-digit phone number</span>
+            <br>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="yours@example.com" required>
+            <span id="email-error" class="error">Please enter a valid email address</span>
+            <br>
+            <label for="comments">Comments:</label>
+            <textarea id="comments" name="comments" rows="5" cols="30" placeholder="write your comments or questions here :)"></textarea>
+            <br>
+            <input type="submit" value="Submit">
+            <input type="reset" value="Reset">
+        </form>
+    </main>
+    <footer>
+        <p>Company Name &copy; 2023. All rights reserved.</p>
+    </footer>
+    <script src="js/validation.js"></script>
+</body>
+</html>

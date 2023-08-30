@@ -1,0 +1,243 @@
+/******w***********
+    
+    Project 3 Stylesheet
+    Name: Yi Siang Chang
+    Date: 2023-04-23
+    Description: Project 3
+
+******************/
+
+/* Global styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header styles */
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 36px;
+}
+
+header p {
+    margin: 0;
+    font-size: 18px;
+}
+
+/* Navigation styles */
+nav {
+    background-color: #666;
+    color: #fff;
+    padding: 10px;
+}
+
+nav ul {
+    display: flex;
+    justify-content: space-between;
+}
+
+nav li {
+    margin: 0 10px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 10px;
+    transition: all 0.3s ease;
+}
+
+nav a:hover {
+    background-color: #333;
+    text-decoration: none;
+}
+
+/* Main content styles */
+main {
+    margin: 20px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+/* Product container styles */
+#product-cont {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
+
+.box {
+    width: 30%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.box img {
+    margin-bottom: 10px;
+}
+
+/* Form styles */
+form {
+    margin: 20px 0;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+input, textarea {
+    border: 1px solid #ccc;
+    padding: 5px;
+    font-size: 16px;
+    border-radius: 5px;
+    width: 100%;
+}
+
+textarea {
+    height: 100px;
+}
+
+input[type="submit"], input[type="reset"] {
+    background-color: #333;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+input[type="submit"]:hover, input[type="reset"]:hover {
+    background-color: #666;
+}
+
+/* Error styles */
+.error {
+    color: red;
+    font-weight: bold;
+}
+
+.error:focus {
+    background-color: pink;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 1024px) {
+    .box {
+        width: 45%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .box {
+        width: 100%;
+    }
+}
+
+/* Footer styles */
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+}
+
+footer p {
+    margin: 0;
+}
+
+footer a {
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Utility classes */
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.hide {
+    display: none;
+}
+
+/* Additional styles for other pages */
+#about-cont {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-bottom: 40px;
+}
+
+.about-box {
+    width: 45%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.about-box img {
+    margin-bottom: 10px;
+}
+
+/* Responsive styles for about page */
+@media screen and (max-width: 768px) {
+    .about-box {
+        width: 100%;
+    }
+}
