@@ -1,0 +1,35 @@
+body{
+    font-family: alegreya, serif;
+    font-size: 20px;
+    margin: 20px auto;
+    width: 1230px;
+}
+
+h3.photographer{
+    margin: 0 0 2em
+}
+
+img{
+    /*width: 100%*/
+    max-width: 100%;
+    height: auto;
+}
+
+#gallery{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 300px);
+    grid-gap: 10px;
+    margin-bottom: 2em
+}
+
+@media only screen and (max-width: 1269px){
+    body{
+        width: 620px
+    }
+}
+
+@media only screen and (max-width: 659px){
+    body{
+        width: 300px
+    }
+}
