@@ -1,5 +1,5 @@
 # RRC_Projects
-### Business Information Technology (IT) program projects at Red River College Polytechnic in Canada
+## Business Information Technology (IT) program projects at Red River College Polytechnic in Canada
 
 
 ##### Compile and run Java program in Conmand Prompt
