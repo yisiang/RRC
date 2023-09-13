@@ -4,12 +4,12 @@
 
 ### Compile and run Java program in Conmand Prompt
 
-1. Find the location of java files
+1. Find the path of java files
 ```
 cd C:/RRCworkspace/Programming1
 ```
 
-2. Complie the Java code, and the FileName.class will be created.
+2. Complie Java code, and the FileName.class will be created.
 ```
 javac FileName.java
 ```
