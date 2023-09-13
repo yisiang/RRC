@@ -12,7 +12,7 @@ cd C:/RRCworkspace/Programming1
 ```
 javac FileName.java
 ```
-and the FileName.class will created. <br>
+and the FileName.class will created. <br><br>
 3. Run the Java program
 ```
 java FileName
