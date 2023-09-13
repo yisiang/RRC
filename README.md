@@ -8,12 +8,15 @@ Business Information Technology (IT) program projects at Red River College Polyt
 ```
 cd C:/RRCworkspace/Programming1
 ```
-2. Complie the Java code
+
+2. Complie the Java code, and the FileName.class will be created.
 ```
 javac FileName.java
 ```
-and the FileName.class will created. <br><br>
+
 3. Run the Java program
 ```
 java FileName
 ```
+
+---
