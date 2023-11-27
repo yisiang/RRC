@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html><head>
+</head><body style="color: rgb(32, 33, 34);"><h1><span style="font-size: 24px; font-family: arial, helvetica, sans-serif;">For your PowerShell script you will need to query the list of computers on your Domain.</span></h1>
+<p><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;">Create a Powershell script that will query and then save some of your system information to a file.&nbsp;</span></p>
+<ul>
+<li style="list-style-type: none; font-family: arial, helvetica, sans-serif; font-size: 19px;">
+<ul style="list-style-type: circle;">
+<li style="font-family: arial, helvetica, sans-serif; font-size: 19px;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;">The script should store the date that your script runs so that you can use it for comparison purposes.</span></li>
+<li style="font-family: arial, helvetica, sans-serif; font-size: 19px;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;">The script should query all of the servers in your environment using the role indicator designation (Ex: All, Controllers, Members, Clients, etc).</span></li>
+<li style="font-family: arial, helvetica, sans-serif; font-size: 19px;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;">Check to make sure that any server name you query exists so that the script runs without errors.</span></li>
+<li style="font-family: arial, helvetica, sans-serif; font-size: 19px;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;">Include the following information in your script:</span>
+<ul style="list-style-type: circle;">
+<li style="font-family: arial, helvetica, sans-serif; font-size: 19px;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;">Processes running on the system</span></li>
+<li style="font-family: arial, helvetica, sans-serif; font-size: 19px;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;">All environment variables for user and for system</span></li>
+<li style="font-family: arial, helvetica, sans-serif; font-size: 19px;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;">The system processor</span></li>
+<li style="font-family: arial, helvetica, sans-serif; font-size: 19px;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;">Computer system information such as name and domain membership</span></li>
+<li style="font-family: arial, helvetica, sans-serif; font-size: 19px;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;">The logical disks on the system– with disk size and free space information</span></li>
+<li style="font-family: arial, helvetica, sans-serif; font-size: 19px;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;">A list of the shares on your drives</span></li>
+<li style="font-family: arial, helvetica, sans-serif; font-size: 19px;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;">The configuration of your network adapter</span></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p></p>
+<hr>
+<p></p>
+<p></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;"><strong><span style="line-height: 107%;">Here is the basic powershell query to get all the computers </span></strong></span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;"> </span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif; padding-left: 40px;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;"><code>$Servers = Get-ADComputer -Filter ‘enabled -eq "true"' ` -Properties Name | Select-Object -Property Name</code></span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;"><strong><span style="line-height: 107%;">Get all the server computers (all non-clients)</span></strong></span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;"> </span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif; padding-left: 40px;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;"><code>$Servers = Get-ADComputer -Filter <span style="background: yellow;">'operatingsystem -like "*server*"</span> -and enabled -eq "true"' ` </code><code>-Properties Name | Select-Object -Property Name</code></span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;"> </span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;"> </span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;"><strong><span style="line-height: 107%;">Get all the clients (non-servers)</span></strong></span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif; padding-left: 40px;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;"><code>$Servers = Get-ADComputer -Filter <span style="background: yellow;">'operatingsystem</span> <span style="background: yellow;">-notlike "*server*"</span> -and enabled -eq "true"' ` </code><code>-Properties Name | Select-Object -Property Name</code></span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;"> </span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;"><strong><span style="line-height: 107%;">Get all Domain-Controllers (no Member servers)</span></strong></span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif; padding-left: 40px;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;"><code>$Servers = Get-ADComputer -Filter '<span style="background: yellow;">operatingsystem -like "*server*"</span> -and enabled -eq "true" -and primarygroupid <span style="background: yellow;">-eq "516"' ` </span></code><code>-Properties Name | Select-Object -Property Name</code></span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;"> </span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;"><strong><span style="line-height: 107%;">Retrieve all Member-Server (Not Domain controllers)</span></strong></span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif; padding-left: 40px;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;"><code>$Servers = Get-ADComputer -Filter <span style="background: yellow;">'operatingsystem -like "*server*"</span> -and enabled -eq "true" -and primarygroupid <span style="background: yellow;">-ne "516"' ` </span></code><code>-Properties Name | Select-Object -Property Name</code></span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"></p>
+<p></p>
+<hr>
+<p></p>
+<p></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;"><strong>Parameter option suggestions:</strong></span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif; padding-left: 40px;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">*none* : Get all the computers</span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif; padding-left: 40px;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">-s : Get all the server computers (all non-clients)</span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif; padding-left: 40px;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">-c : Get all the clients (non-servers)</span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif; padding-left: 40px;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">-dc : Get all Domain-Controllers (no Member servers)</span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif; padding-left: 40px;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">-sm : Retrieve all Member-Server (Not Domain controllers)</span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;"> </span></p>
+<p></p>
+<p><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;"> </span></p>
+<p></p>
+<p></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;"><strong>Use a switch to get the correct list of computers based on parameter</strong></span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;"><code>Switch -regex [&lt;-- to make the switch case-insensitive] ($ParameterName)</code></span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;"><code>{</code></span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif; padding-left: 40px;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;"><code> “dc” {the get all domain controllers command}</code></span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif; padding-left: 40px;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;"><code> “sm” {the get all domain members command}</code></span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif; padding-left: 40px;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;"><code> Etc…</code></span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif; padding-left: 40px;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;"><code> Default [&lt;-- no parameters given] {the get all computers command}</code></span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;"><code>}</code></span></p>
+<p></p>
+<p></p>
+<hr>
+<p></p>
+<p></p>
+<p></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;"> </span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;"> </span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;"><strong>Notes to make it all work:</strong></span></p>
+<ul>
+<li style="line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">Must be logged in as a Domain Account.</span></li>
+<li style="line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">The Domain Account should be a Domain Admin.</span></li>
+<li style="line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">Everything should be in one script that will get the list of servers (above), iterate through them with a foreach loop using “Invoke-Command” with the “-ScriptBlock” option that contains all the commands you wish to run.</span></li>
+<li style="line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">In the foreach loop, use an if else to determine if the computer can be contacted/turned on, the Test-Connection command is a good idea.</span></li>
+<li style="line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;">To save the output of the foreach loop, assign a variable to it then use | Out-File to make an output file.</span></li>
+</ul>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;"><code>$Output = Foreach (…)</code></span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;"><code>{</code></span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif; padding-left: 40px;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;"><code> if (Test-Connection -BufferSize 32 -Count 1 -ComputerName $pcName -Quiet) {</code></span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;"><code>}</code></span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;"><code>$Output | Out-File -Filepath “the path to where I want the file\filename.txt”</code></span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;"> </span></p>
+<p></p>
+<p></p>
+<hr>
+<p></p>
+<p></p>
+<p><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;"> </span></p>
+<p></p>
+<p><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;"></span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;"><b><u>Useful Powershell Commands</u></b></span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="color: black; background: white; font-size: 19px; font-family: arial, helvetica, sans-serif;">o Processes running on the system</span></p>
+<p style="text-indent: 36pt; margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="font-size: 19px; line-height: 107%; color: rgb(86, 156, 214); font-family: arial, helvetica, sans-serif;">Get-Process</span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">o All environment variables for user and for system</span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif; padding-left: 40px;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;"> <span style="color: rgb(91, 155, 213);">dir env:</span></span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif; padding-left: 40px;"><span style="color: rgb(91, 155, 213); font-size: 19px; font-family: arial, helvetica, sans-serif;">Get-ChildItem –Path Env:</span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">o The system processor</span></p>
+<p style="text-indent: 36pt; margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="color: rgb(91, 155, 213); background: white; font-size: 19px; font-family: arial, helvetica, sans-serif;">Get-WmiObject Win32_Processor</span></p>
+<p style="text-indent: 36pt; margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="color: rgb(91, 155, 213); font-size: 19px; font-family: arial, helvetica, sans-serif;">Gwmi win32_processor</span></p>
+<p style="text-indent: 36pt; margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><br><span style="color: black; background: white; font-size: 19px; font-family: arial, helvetica, sans-serif;">o Computer system information such as name and domain membership</span></p>
+<p style="text-indent: 36pt; margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="color: rgb(91, 155, 213); background: white; font-size: 19px; font-family: arial, helvetica, sans-serif;">Get-ComputerInfo</span></p>
+<p style="text-indent: 36pt; margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="color: rgb(91, 154, 213);">Get-WmiObject</span><span style="color: rgb(91, 155, 213);"> win32_computersystem</span></span></p>
+<p style="text-indent: 36pt; margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="color: rgb(91, 155, 213); font-size: 19px; font-family: arial, helvetica, sans-serif;">gwmi win32_computersystem</span></p>
+<p style="text-indent: 36pt; margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><br><span style="color: black; background: white; font-size: 19px; font-family: arial, helvetica, sans-serif;">o The logical disks on the system– with disk size and free space information</span></p>
+<p style="text-indent: 36pt; margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="color: rgb(91, 155, 213); font-size: 19px; font-family: arial, helvetica, sans-serif;">Get-WmiObject –Class Win32_LogicalP</span></p>
+<p style="text-indent: 36pt; margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="color: rgb(91, 155, 213); font-size: 19px; font-family: arial, helvetica, sans-serif;">Get-WmiObject –Class Win32_LogicalDisk</span></p>
+<p style="text-indent: 36pt; margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="color: rgb(91, 155, 213); font-size: 19px; font-family: arial, helvetica, sans-serif;">Get-CimInstance win32_logicaldisk</span></p>
+<p style="text-indent: 36pt; margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="color: rgb(91, 155, 213); font-size: 19px; font-family: arial, helvetica, sans-serif;">gwmi win32_logicaldisk</span></p>
+<p style="text-indent: 36pt; margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><br><span style="color: black; background: white; font-size: 19px; font-family: arial, helvetica, sans-serif;">o A list of the shares on your drives</span></p>
+<p style="text-indent: 36pt; margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="color: rgb(91, 154, 213); font-size: 19px; font-family: arial, helvetica, sans-serif;">net share</span></p>
+<p style="text-indent: 36pt; margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="color: rgb(91, 154, 213); font-size: 19px; font-family: arial, helvetica, sans-serif;">Get-WMIObject -Query "SELECT * FROM Win32_Share" | FT</span></p>
+<p style="text-indent: 36pt; margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="color: rgb(91, 154, 213); font-size: 19px; font-family: arial, helvetica, sans-serif;">gwmi win32_share</span></p>
+<p style="text-indent: 36pt; margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><br><span style="color: black; background: white; font-size: 19px; font-family: arial, helvetica, sans-serif;">o The configuration of your network adapter</span></p>
+<p style="text-indent: 36pt; margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="color: rgb(91, 155, 213); font-size: 19px; font-family: arial, helvetica, sans-serif;">Get-NetAdapter</span></p>
+<p style="text-indent: 36pt; margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="color: rgb(91, 155, 213); font-size: 19px; font-family: arial, helvetica, sans-serif;">Gwmi win32_networkadapterconfiguration</span></p></body></html>

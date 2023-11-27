@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html><head></head><body style="color: rgb(32, 33, 34); font-family: undefined;"><p style="margin: 0cm; font-size: 28pt; font-family: 'Calibri Light', sans-serif;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;">First, setup your [LastInitial][FirstName]DC1 virtual machine using the steps from the previous guides</span><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;"></span></p>
+<h3 style="margin: 0cm; font-size: 28pt; font-family: 'Calibri Light', sans-serif;"><span style="font-family: arial, helvetica, sans-serif;"><span style="color: rgb(207, 42, 39); font-size: 12px;"><b>REMINDER, DO&nbsp;<span style="text-decoration: underline;"><em>NOT </em></span>CHANGE YOUR AZURE HOSTS DNS OR IP ADDRESS SETTINGS UNDER ANY CIRCUMSTANCES, EVEN IF YOU THINK YOUR INSTRUCTOR TOLD YOU TO DO IT.</b></span></span></h3>
+<h1 style="margin: 12pt 0cm 0cm; line-height: 107%; break-after: avoid; font-size: 16pt; font-family: 'Calibri Light', sans-serif; color: rgb(47, 84, 150); font-weight: normal;"><span style="font-family: arial, helvetica, sans-serif;"><span style="font-size: 24px;"><strong><span style="color: rgb(47, 84, 150); font-family: arial, helvetica, sans-serif; font-size: 24px;">SETTING UP THE NETWORK BASED </span><span style="color: #2f5496; font-family: arial, helvetica, sans-serif;"><span style="font-size: 24px;">INSTALLATION</span></span></strong><b style="color: rgb(47, 84, 150); font-family: arial, helvetica, sans-serif; font-size: 24px; font-weight: normal;"> (</b></span><span style="font-size: 24px;"><b>DC1)</b></span></span></h1>
+<ol>
+<li style="font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">Add the <strong>DHCP</strong> Role</span></li>
+<li style="font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;">Add the <b>Windows Deployme<span style="font-family: arial, helvetica, sans-serif;">nt Service</span></b> role</span></li>
+<li style="font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;">Make sure to Complete DHCP the configuration, before closing the role wizard (it can also be done after)</span></li>
+<li style="font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;">Create a new DHCP scope, called <strong>Internal Network,</strong> with a Start IP address of <b><span style="background: aqua;">172.16.0.50</span> </b>and an End IP address of <b><span style="background: aqua;">172.16.0.100.</span></b></span>
+<ul style="margin-bottom: 0cm; margin-top: 0px;">
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">At the Configure DHCP Options page, <b>select No, I will configure these options later.</b></span></li>
+</ul>
+</li>
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">Activate the scope.</span></li>
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">Using the <strong>Software </strong>folder on the Host Azure VM’s Desktop. Mount the Windows 2019 Server ISO to the DC1 VM.</span></li>
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">Within Server Manager of DC1, configure your server under <b>Windows Deployment Services</b>.</span>
+<ul style="margin-bottom: 0cm; margin-top: 0px;">
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">At the Install Options page, <b>select Standalone server</b> and click <b>Next</b>.</span></li>
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">At the Remote Installation Folder Location page, create a folder on the D:\ drive with the name <b><span style="background: aqua;">RemoteInstall</span></b> and choose that as its location. Click <b>Yes </b>when prompted.</span></li>
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">At the PXE Server Initial Settings page, <b>select Respond to all client computers (known and unknown).</b></span></li>
+</ul>
+</li>
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">Still in the Windows Deployment Services window, <b>right-click Boot Images under your server</b> and click <b>Add Boot Image</b>.</span>
+<ul>
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">Navigate to the mounted iso, go to the \sources folder, and select the <b><u><span style="background: yellow;">boot.wim</span></u></b> file.</span></li>
+</ul>
+</li>
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">In the Windows Deployment Services window, <b>right-click Install Images</b> under your server and click <b>Add Install Image</b>.</span>
+<ul>
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">Use the default image group name.</span></li>
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">Go to \sources folder again, and select the <b><u><span style="background: yellow;">install.wim</span></u></b> file.</span></li>
+</ul>
+</li>
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">Start your server in the WDS window.</span></li>
+</ol>
+<ol start="9" style="margin-bottom: 0cm; margin-top: 0px;"></ol>
+<ol style="margin-bottom: 0cm; margin-top: 0px;">
+<li style="list-style: none; margin: 0cm 0cm 0cm 0px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;">
+<ul style="margin-bottom: 0cm; margin-top: 0px;"></ul>
+</li>
+</ol>
+<ol start="10" style="margin-bottom: 0cm; margin-top: 0px;"></ol>
+<ol style="margin-bottom: 0cm; margin-top: 0px;">
+<li style="list-style: none; margin: 0cm 0cm 0cm 0px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;">
+<ul style="margin-bottom: 0cm; margin-top: 0px;"></ul>
+</li>
+</ol>
+<ol start="11" style="margin-bottom: 0cm; margin-top: 0px;"></ol>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;"> </span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="font-family: arial, helvetica, sans-serif;"> </span></p>
+<h1 style="margin: 12pt 0cm 0cm; line-height: 107%; break-after: avoid; font-size: 16pt; font-family: 'Calibri Light', sans-serif; color: rgb(47, 84, 150); font-weight: normal;"><span style="font-family: arial, helvetica, sans-serif;"><span style="font-size: 24px;"><b>CREATE A NEW VIRTUAL MACHINE FOR WDS </b></span></span></h1>
+<ol>
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">Create a new Virtual Machine named <strong>[LastInitial][FirstName]DM1</strong> on your Azure host, following only the first half of the guide (do not install windows).</span>
+<ul style="margin-bottom: 0cm; margin-top: 0px;">
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-family: arial, helvetica, sans-serif; font-size: 19px;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">Make sure that the virtual machine is on the D: Drive</span></li>
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-family: arial, helvetica, sans-serif; font-size: 19px;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">At the Installation Options page, select <b>Install an operating system from a network-based installation server.</b></span></li>
+</ul>
+</li>
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-family: arial, helvetica, sans-serif; font-size: 19px;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">In Hyper-V select the child VM, click on <b>Settings</b> on the right column.</span>
+<ul style="margin-bottom: 0cm; margin-top: 0px;">
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-family: arial, helvetica, sans-serif; font-size: 19px;"><span style="font-family: arial, helvetica, sans-serif;">Select SCSI Controller and add an additional <span style="background: aqua;">20 GB</span> (D drive).</span></li>
+</ul>
+</li>
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-family: arial, helvetica, sans-serif; font-size: 19px;"><span style="font-family: arial, helvetica, sans-serif;">Start and connect to your DM1 virtual machine and wait for the prompt to press <b>F12</b> on your keyboard, this will start the installation process.</span>
+<ul style="margin-bottom: 0cm; margin-top: 0px;">
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-family: arial, helvetica, sans-serif; font-size: 19px; font-weight: bold;"><span style="font-family: arial, helvetica, sans-serif;"><strong>If the DHCP times out, here are some possible solutions:</strong></span></li>
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-family: arial, helvetica, sans-serif; font-size: 19px;"><span style="font-family: arial, helvetica, sans-serif;">You may have forgotten to complete the DHCP configuration.</span></li>
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-family: arial, helvetica, sans-serif; font-size: 19px;"><span style="font-family: arial, helvetica, sans-serif;">You may have forgotten to activate the DHCP scope.</span></li>
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-family: arial, helvetica, sans-serif; font-size: 19px;"><span style="font-family: arial, helvetica, sans-serif;">You may have forgotten to start the WDS server.</span></li>
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-family: arial, helvetica, sans-serif; font-size: 19px;"><span style="font-family: arial, helvetica, sans-serif;">If you already mad<span style="font-size: 19px;">e DC1 into a domain controller, you will need to authorize the WDS server inside of the WDS window.</span></span></li>
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-family: arial, helvetica, sans-serif; font-size: 19px;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">If the DHCP or WDS roles on your DC1 say they are corrupt, remove the roles and re-add them to solve the issue.</span></li>
+</ul>
+</li>
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-family: arial, helvetica, sans-serif; font-size: 19px;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">After selecting the locale and keyboard input method, click next and you should be prompted to provide a valid user name and password for an account on the WDS server, supply the computer and user name of your DM1 like so:&nbsp; <strong>dm1_vm_name\dm1_admin_username</strong> and the password <strong>Secret555</strong>.</span></li>
+<li style="font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-family: arial, helvetica, sans-serif;">The rest of the installation should be standard following the guide.</span></li>
+</ol>
+<p></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="font-family: arial, helvetica, sans-serif;"> </span></p>
+<h1 style="margin: 12pt 0cm 0cm; line-height: 107%; break-after: avoid; font-size: 16pt; font-family: 'Calibri Light', sans-serif; color: rgb(47, 84, 150); font-weight: normal;"><span style="font-size: 24px; font-family: arial, helvetica, sans-serif;"><b>INITIALIZATION OF SECOND DISKS</b></span></h1>
+<ol>
+<li style="line-height: 107%; break-after: avoid; font-size: 16pt; font-family: arial, helvetica, sans-serif; font-weight: normal;"><span style="font-family: arial, helvetica, sans-serif; color: rgb(0, 0, 0); font-size: 19px;">Press Windows Key + R, enter “diskmgmt.msc” and click run.</span>
+<ul style="margin-bottom: 0cm; margin-top: 0px;">
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-size: 11pt; font-family: arial, helvetica, sans-serif; color: rgb(0, 0, 0);"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif; color: rgb(0, 0, 0);">Right click Disk 1, click <b>Online.</b></span></li>
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-size: 11pt; font-family: arial, helvetica, sans-serif; color: rgb(0, 0, 0);"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif; color: rgb(0, 0, 0);">Right click Disk 1 <a name="_Int_CxmWiEqB" style="color: rgb(0, 0, 0);"></a>again and <b>Initialize Disk.</b></span></li>
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-size: 11pt; font-family: arial, helvetica, sans-serif; color: rgb(0, 0, 0);"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif; color: rgb(0, 0, 0);">Make sure Disk 1, and <b>MBR</b> are both selected. Choose <b>OK</b></span></li>
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-size: 11pt; font-family: arial, helvetica, sans-serif; color: rgb(0, 0, 0);"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif; color: rgb(0, 0, 0);">Right click the box right of Disk 1 and click “<b>New Simple Volume</b>”</span></li>
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif; color: rgb(0, 0, 0);"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="color: rgb(0, 0, 0);">On the Format Partition page, give the storage a new name or click&nbsp;<b>next</b>, then click <b>Finish</b></span><span style="color: rgb(0, 0, 0);"><b></b></span></span></li>
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif; color: rgb(0, 0, 0);"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">Repeat for other VMs as needed</span></li>
+</ul>
+</li>
+</ol>
+<p style="margin: 0cm 0cm 8pt 36pt; text-align: center; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"></p>
+<ol start="3" style="margin-bottom: 0cm; margin-top: 0px;"></ol>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;"> </span></p>
+<h1 style="margin: 12pt 0cm 0cm; line-height: 107%; break-after: avoid; font-size: 16pt; font-family: 'Calibri Light', sans-serif; color: rgb(47, 84, 150); font-weight: normal;"><span style="font-size: 24px; font-family: arial, helvetica, sans-serif;"><b>CONFIGURING DOMAIN SERVER (DC1)</b></span></h1>
+<ol style="margin-bottom: 0cm; margin-top: 0px;">
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">Add the <b>Active Directory Domain Services</b> role.</span></li>
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">On the Confirm installation selections page, click <b>Install</b> to install the files needed for Active Directory Domain Services. Do <strong>not </strong>close the wizard when the installation is finished.</span></li>
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">Click <b><span style="font-size: 19px;">Pr</span>omote this server to a domain controller</b> to start the Active Directory Domain Services Configuration Wizard.</span>
+<ul style="margin-bottom: 0cm; margin-top: 0px;">
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px;">Select <strong>Add a new forest, </strong></span><span style="font-size: 19px;">In the Root domain name text box, type <strong>YourLastNameProject.local</strong></span></span></li>
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">Select a Forest functional level of <strong>Windows Server 2008</strong>, and a Domain functional level of <strong>Windows Server 2008</strong>.</span></li>
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px;">Type </span><span style="font-size: 19px;"><strong>Secret555 </strong>for the Password.</span></span></li>
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">At the Prerequisites Check page, click Install. Your computer will reboot following installation.</span></li>
+</ul>
+</li>
+<li style="margin: 0cm 0cm 8pt 0px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-family: arial, helvetica, sans-serif;">After your DC1 has restarted, log into YourLastNameProject.local, you may have to type “YourLastNameProject\Administrator” as the username</span><br><span style="font-family: arial, helvetica, sans-serif;">Within Server Manager, go to Local Server and then click the hyperlink next to your network interface.</span><br><span style="font-family: arial, helvetica, sans-serif;">In the Network Interfaces properties, go to Internet Protocol Version 4 (TCP/IPv4) and click Properties. Note that the Preferred DNS server has been set to 127.0.0.1, add the Azure Hosts IP address as secondary DNS.</span></li>
+</ol>
+<ol start="12" style="margin-bottom: 0cm; margin-top: 0px;"></ol>
+<h1 style="margin: 12pt 0cm 0cm; line-height: 107%; break-after: avoid; font-size: 16pt; font-family: 'Calibri Light', sans-serif; color: rgb(47, 84, 150); font-weight: normal;"><span style="font-family: arial, helvetica, sans-serif;"><b>ADDING DM1 TO THE DOMAIN</b></span></h1>
+<ol style="margin-bottom: 0cm; margin-top: 0px;">
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">On DM1, change the <b>Preferred DNS to the IP of DC1</b> and move the current one to Alternate. Close the window</span></li>
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">On Server Manager (DM1), under Local Server on the left pane, select <b>WORKGROUP</b> then click <b>Change</b> and select <b>Domain </b>circle and enter in <b>YourLastNameProject.local</b></span>
+<ol style="list-style-type: lower-alpha; margin-bottom: 0cm; margin-top: 0px;">
+<li style="margin: 0cm 0cm 8pt 0px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">For the login prompt, it should be <b>Administrator </b>and <b>Secret555 </b>and afterwards it should show Welcome to YourLastNameProject.local domain message box.</span></li>
+</ol>
+</li>
+</ol>
+<h1 style="margin: 12pt 0cm 0cm; line-height: 107%; break-after: avoid; font-size: 16pt; font-family: 'Calibri Light', sans-serif; color: rgb(47, 84, 150); font-weight: normal;"><span style="font-size: 24px; font-family: arial, helvetica, sans-serif;"><b>CREATE A SERVER GROUP</b></span></h1>
+<ol style="margin-bottom: 0cm; margin-top: 0px;">
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">Turn off <b>Windows Firewall (Public, Private, and Domain) </b>on both DC1 and DM1.</span></li>
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">Open <b>services.msc</b> in DM1 and scroll down until you see&nbsp;<b>Virtual Disk, </b>right-click and select <b>Properties</b></span>
+<ol style="list-style-type: lower-alpha; margin-bottom: 0cm; margin-top: 0px;">
+<li style="margin: 0cm 0cm 8pt 0px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">For Startup drop down, choose <b>Automatic </b>then select <b>Log On</b> on the tabs at the top and make sure you select <b>Allow service to interact with desktop. </b>Now you may <b>start </b>the service.</span></li>
+</ol>
+</li>
+</ol>
+<p style="text-align: center; margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="font-family: arial, helvetica, sans-serif; font-size: 19px;"><img src="File_3b08e663535f42efad40edc435ce391f_image.png" data-d2l-editor-default-img-style="true" style="max-width: 100%;"></span></p>
+<ol start="3" style="margin-bottom: 0cm; margin-top: 0px;">
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">In the DC1 Dashboard, click&nbsp;<b>Create a Server Group</b></span>
+<ol style="list-style-type: lower-alpha; margin-bottom: 0cm; margin-top: 0px;">
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">On the tabs, select Active Directory, click <b>Find Now </b>(both VMs should populate) then select both DM1 and DC1.</span></li>
+<li style="margin: 0cm 0cm 8pt 0px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">Input an appropriate name for the group.</span></li>
+</ol>
+</li>
+</ol>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;"><b><span style="line-height: 107%; color: rgb(68, 114, 196);"> </span></b></span></p>
+<p style="margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"><span style="font-size: 24px; font-family: arial, helvetica, sans-serif;"><b><span style="line-height: 107%; color: rgb(47, 84, 150);">HOW TO ACCESS DISK MANAGEMENT</span></b></span></p>
+<ol style="margin-bottom: 0cm; margin-top: 0px;">
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">In <b>Server Manager</b>, click on your server group on the left-hand pane.</span></li>
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">Right Click on <b>DM1 </b>and select <b>Computer Management</b>. (DM1 must be running).</span></li>
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">In computer management, click <b>disk management</b> to access the drives in DM1.</span>
+<ul style="margin-bottom: 0cm; margin-top: 0px;">
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">If it is giving you an error saying “The RPC Server is Unavailable”, follow these steps</span></li>
+<li style="margin: 0cm 0cm 0cm 0px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">Open Windows Powershell as admin and run this following command on both<b> DC1</b> and <b>DM1.</b></span>
+<ol style="list-style-type: lower-roman; margin-bottom: 0cm; margin-top: 0px;">
+<li style="margin: 0cm 0cm 0cm 12px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;"><b><span style="line-height: 107%; color: black;">netsh advfirewall firewall set rule group="Remote Volume Management" new enable=yes </span></b></span></li>
+</ol>
+</li>
+</ul>
+</li>
+<li style="margin: 0cm 0cm 8pt 0px; line-height: 107%; font-size: 19px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 19px; font-family: arial, helvetica, sans-serif;">If no errors occur, disk management should load after you click on it.</span></li>
+</ol>
+<p style="text-indent: 36pt; margin: 0cm 0cm 8pt; line-height: 107%; font-size: 11pt; font-family: Calibri, sans-serif;"></p></body></html>
