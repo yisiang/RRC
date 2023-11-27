@@ -1,0 +1,46 @@
+﻿$Enter = Read-Host "Please choose one of 'all, s, c, dc, sm' to enter"
+
+$allServerData = @()
+
+function QueryAndAddServerData {
+    param (
+        [string]$computerName
+    )
+
+    $output = @{
+        ComputerName = $computerName
+        Processes = Get-Process | Select-Object -Property Name, Id
+        UserEnvironmentVariables = Get-ChildItem -Path Env: | ForEach-Object { [PSCustomObject]@{ Name = $_.Name; Value = $_.Value } }
+        SystemEnvironmentVariables = [System.Environment]::GetEnvironmentVariables() | ForEach-Object { [PSCustomObject]@{ Name = $_.Name; Value = $_.Value } }
+        ProcessorInfo = Get-WmiObject Win32_Processor
+        ComputerInfo = Get-ComputerInfo
+        LogicalDisks = Get-CimInstance -Class Win32_LogicalDisk
+        Shares = Get-WmiObject -Query "SELECT * FROM Win32_Share"
+        NetworkAdapterConfig = Get-NetIPConfiguration | Select-Object -Property InterfaceAlias, InterfaceDescription, IPAddress, SubnetPrefix, DefaultIPGateway, DNSServer, Dhcp
+    }
+
+    
+    return $output
+}
+
+Switch -regex ($Enter.ToLower()) {
+    "s" { $servers = Get-ADComputer -Filter 'operatingsystem -like "*server*" -and enabled -eq "true"' -Properties Name | Select-Object -ExpandProperty Name }
+    "c" { $servers = Get-ADComputer -Filter 'operatingsystem -notlike "*server*" -and enabled -eq "true"' -Properties Name | Select-Object -ExpandProperty Name }
+    "dc" { $servers = Get-ADComputer -Filter 'operatingsystem -like "*server*" -and enabled -eq "true" -and primarygroupid -eq "516"' -Properties Name | Select-Object -ExpandProperty Name }
+    "sm" { $servers = Get-ADComputer -Filter 'operatingsystem -like "*server*" -and enabled -eq "true" -and primarygroupid -ne "516"' -Properties Name | Select-Object -ExpandProperty Name }
+    "all" { $servers = Get-ADComputer -Filter 'enabled -eq "true"' -Properties Name | Select-Object -ExpandProperty Name }
+}
+
+$outputPath = "C:\Powershellscripts\SystemInfo_$ParameterName.txt"
+
+foreach ($server in $servers) {
+    if (Test-Connection -ComputerName $server -Count 1 -Quiet) {
+        
+        $allServerData += QueryAndAddServerData -computerName $server
+    }
+    else {
+        Write-Host "Unable to reach $server."
+    }
+}
+
+$allServerData | Out-File -FilePath $outputPath 
